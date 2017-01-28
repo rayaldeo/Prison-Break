@@ -6,7 +6,8 @@ public class TextController : MonoBehaviour {
 
 	public Text text;
 	private enum States{beginning,cell,mirror,sheets_0,lock_0,cell_mirror,sheets_1,lock_1, corridor_Zero,freedom,cafeteria
-		,whistling,recreational,corridor_One,fence};
+		,whistling,recreational,corridor_One,fence,openField,woodShop,unfamiliarBuilding,shipmentTruck,caught,stayInContainter
+		,leaveContainer};
 	private States myState;
 
 	// Use this for initialization
@@ -31,6 +32,13 @@ public class TextController : MonoBehaviour {
 		}else if(myState ==States.whistling){			state_Whistling();
 		}else if(myState ==States.corridor_One){		state_CorridorOne();
 		}else if(myState ==States.fence){		        state_Fence();
+		}else if(myState ==States.openField){		    state_openField();
+		}else if(myState ==States.woodShop){		    state_woodShop();
+		}else if(myState ==States.unfamiliarBuilding){  state_unfamiliarBuilding();
+		}else if(myState ==States.caught){  			state_caught();
+		}else if(myState ==States.shipmentTruck){       state_shipmentTruck();
+		}else if(myState ==States.stayInContainter){    state_stayInContainter();
+		}else if(myState ==States.leaveContainer){      state_Beginnging();
 		}
 		
 	}
@@ -39,8 +47,7 @@ public class TextController : MonoBehaviour {
 	void state_Beginnging(){
 		text.text="You have been locked away in Prison for your horrendous crimes. "+
 				"Through the years your thirst for freedom grew, finally to this breaking point. "+
-				"You know that you are locked in the tightest part of the prison,D Block, and you need a"+
-				" map to better navigate the prison to avoid the guards and new clothes."+
+				"There are four block:(A,B,C,D).You know that you are locked in the tightest part of the prison,D Block. "+
 				"\n\n"+
 				"Good Luck "+
 		        "Press Enter Key to Begin";
@@ -134,16 +141,16 @@ public class TextController : MonoBehaviour {
 		text.text="You have entered the Cafteria, and there is a guard with a baton, ready to send you back to your cell"+
 				  " You Lost!"+
 				  "\n\n"+
-				  "Press P to Play Again";
-		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}	
+		"Press P to Play Again";
+		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}
 	}
 	
 	void state_Recreational(){
 		text.text="You have entered the outside Recreational Area, and there is a small crack in the fence."+
 			"\n\n"+
 				"Press A to Go throught the crack in the fence or C to return to the Corridor";
-		if(Input.GetKeyDown(KeyCode.A)){ myState =States.corridor_One;}
-		else if(Input.GetKeyDown(KeyCode.C)){myState=States.fence; }
+		if(Input.GetKeyDown(KeyCode.C)){ myState =States.corridor_One;}
+		else if(Input.GetKeyDown(KeyCode.A)){myState=States.fence; }
 	}
 	
 	void state_CorridorOne(){
@@ -151,16 +158,83 @@ public class TextController : MonoBehaviour {
 				  " You can hear the whistling is very close to you.You turn around and there is a guard behind you ,swinging his baton."+
 				" You Lost!"+
 				"\n\n"+
-				"Press P to Play Again";
-		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}	
+		"Press P to Play Again";
+		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}
 	}
 	
 	void state_Fence(){
-		text.text="You squeezed through the fence"+
+		text.text="You squeezed through the fence leading to an Open Field. "+
 			"You can hear the whistling  get louder and fade away into the corridor."+
-			"You are unable to turn back now. You see and old storage room"+
+			"You are unable to turn back now. You see and old storage room. "+
 				"\n\n"+
-				"Press E";
-		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}	
+				"Press O to look around the Open Field ";
+		if(Input.GetKeyDown(KeyCode.O)){ myState =States.openField;}	
 	}
+	
+	void state_openField(){
+		text.text="You look around the Open Field to see your available options. "+
+			     "You notcied an old wood work shop.A map may be in there, you think to yourself. "+
+				"You also see a door leading to another building that you are unfamiliar with. "+
+				"\n\n"+
+				"Press W to enter the Wood work shop or Press F to enter the unfamiliar building  ";
+		if(Input.GetKeyDown(KeyCode.W)){ myState =States.woodShop;}	
+		else if(Input.GetKeyDown(KeyCode.F)){myState=States.unfamiliarBuilding; }
+	}
+	
+	void  state_woodShop(){
+		text.text="You enter the Wood shop and immediately you see a shipping scehdule for supplies on the wall. "+
+			      "You notcied that a shipment of tools will arrive in an hour. "+
+				"\n\n"+
+				"Press L to sneak on the next shipment ride out of the Prison or Press F to return to the Open Field.  ";
+		if(Input.GetKeyDown(KeyCode.L)){ myState =States.caught;}	
+		else if(Input.GetKeyDown(KeyCode.F)){myState=States.openField; }
+	}
+	
+	void state_caught(){
+		text.text="You wait for the next shipment truck to arrive and you begin to hear whistling."+
+				"You hid away in the work shop hoping not to be found. "+
+				"The front door of the work shop blowned open and you hear barking."+
+				"The guard dogs sniffed you out. "+
+				"You Lost!"+
+				"\n\n"+
+		"Press P to Play Again";
+		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}
+	}
+	
+	void state_unfamiliarBuilding(){
+		text.text="You enter the Unfamiliar Builing and you noticed that there is a truck about to pull away. "+
+		          "It looks like it is leaving the Prision. "+
+				"\n\n"+
+				"Press L to sneak on the truck and ride out of the Prison or Press F to return to the Open Field.  ";
+		if(Input.GetKeyDown(KeyCode.L)){ myState =States.shipmentTruck;}	
+		else if(Input.GetKeyDown(KeyCode.F)){myState=States.openField; }
+	}
+	
+	void state_shipmentTruck(){
+		text.text="You pack yourself firmly in a box that was placed in the truck. "+
+			    "Just as you close the lid to the container you hear barking in the distance. "+
+			    "The guards must know you are missing if they are pulling out guard dogs. "+
+			    "You feel the truck beginning to slow down. "+
+				"\n\n"+
+				"Press S to stay in your container or press G to get out of the truck before the guard catches up.  ";
+		if(Input.GetKeyDown(KeyCode.S)){ myState =States.stayInContainter;}	
+		else if(Input.GetKeyDown(KeyCode.G)){myState=States.leaveContainer; }
+	}
+	
+	 void state_stayInContainter(){
+		text.text="You feel the truck come to a halt. "+
+			"The back of the truck slid open,and you hear footsteps walking up to your container. "+
+				"\n\n"+
+				"..... "+
+				"\n\n"+
+				"...."+
+				"BOOM!..'There was an explosion in A Block', was heard over the shreff walkies. "+
+				"'We think the convict is in A Block.' "+
+				"You hear the guard dash out."+
+				"\n\n"+
+				"Press S to stay in your container or press G to get out of the truck before the guard catches up.  ";
+		if(Input.GetKeyDown(KeyCode.S)){ myState =States.stayInContainter;}	
+		else if(Input.GetKeyDown(KeyCode.G)){myState=States.leaveContainer; }
+	}
+	
 }
