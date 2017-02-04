@@ -7,7 +7,7 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States{beginning,cell,mirror,sheets_0,lock_0,cell_mirror,sheets_1,lock_1, corridor_Zero,freedom,cafeteria
 		,whistling,recreational,corridor_One,fence,openField,woodShop,unfamiliarBuilding,shipmentTruck,caught,stayInContainter
-		,leaveContainer};
+		,leaveContainer,stayContainerFreedom};
 	private States myState;
 
 	// Use this for initialization
@@ -38,7 +38,8 @@ public class TextController : MonoBehaviour {
 		}else if(myState ==States.caught){  			state_caught();
 		}else if(myState ==States.shipmentTruck){       state_shipmentTruck();
 		}else if(myState ==States.stayInContainter){    state_stayInContainter();
-		}else if(myState ==States.leaveContainer){      state_Beginnging();
+		}else if(myState ==States.leaveContainer){      state_leaveContainer();
+		}else if(myState ==States.stayContainerFreedom){state_stayContainerFreedom();
 		}
 		
 	}
@@ -78,8 +79,8 @@ public class TextController : MonoBehaviour {
 	}
 	
 	void state_sheet(){
-		text.text="You can't believe you sleep in these things.Surely it's time somebody changed them."+
-				  "The pleasures of prison life I guess"+
+		text.text="You can't believe you sleep in these things.Surely it's time somebody changed them. "+
+				  "The pleasures of prison life I guess. "+
 				  "\n\n"+
 				  "Press R to Return to roaming your cell";
 		
@@ -87,8 +88,8 @@ public class TextController : MonoBehaviour {
 	}
 	
 	void state_lockZero(){
-		text.text="This is one of the button locks.You have no idea what the combination is."+
-				  "You wish you could somehow see where the diry fingerprints were,maybe that would help"+
+		text.text="This is one of the button locks.You have no idea what the combination is. "+
+				  "You wish you could somehow see where the diry fingerprints were,maybe that would help. "+
 				  "\n\n"+
 				  "Press R to Return to roaming your cell";
 		if(Input.GetKeyDown(KeyCode.R)){ myState =States.cell;}
@@ -105,7 +106,7 @@ public class TextController : MonoBehaviour {
 		}
 	
 	void state_sheetOne(){
-		text.text="Holding a mirror in your hand doesn't make the sheets and better"+
+		text.text="Holding a mirror in your hand doesn't make the sheets and better. "+
 			      "\n\n"+
 				  "Press R to Return to roaming your cell";
 		if(Input.GetKeyDown(KeyCode.R)){ myState =States.cell;}
@@ -173,7 +174,7 @@ public class TextController : MonoBehaviour {
 	
 	void state_openField(){
 		text.text="You look around the Open Field to see your available options. "+
-			     "You notcied an old wood work shop.A map may be in there, you think to yourself. "+
+			     "You notcied an old wood work shop."+
 				"You also see a door leading to another building that you are unfamiliar with. "+
 				"\n\n"+
 				"Press W to enter the Wood work shop or Press F to enter the unfamiliar building  ";
@@ -235,6 +236,25 @@ public class TextController : MonoBehaviour {
 				"Press S to stay in your container or press G to get out of the truck before the guard catches up.  ";
 		if(Input.GetKeyDown(KeyCode.S)){ myState =States.stayInContainter;}	
 		else if(Input.GetKeyDown(KeyCode.G)){myState=States.leaveContainer; }
+	}
+	
+	void state_stayContainerFreedom(){
+		text.text="The truck begins moving again. "+
+					"The sound of guards begins to disapate as the truck begins to leave the prison. "+
+					"You are Free! "+
+				"\n\n"+
+				"Press P to Play Again";
+		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}
+	
+	}
+	
+	void  state_leaveContainer(){
+		text.text="The truck begins moving again without you. "+
+			"You see guards running in all directions, some towards to A block and some towards you. "+
+				"You were caugt! "+
+				"\n\n"+
+				"Press P to Play Again";
+		if(Input.GetKeyDown(KeyCode.P)){ myState =States.cell;}
 	}
 	
 }
