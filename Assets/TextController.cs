@@ -47,7 +47,7 @@ public class TextController : MonoBehaviour {
 	
 	void state_Beginnging(){
 		text.text="You have been locked away in Prison for your horrendous crimes. "+
-				"Through the years your thirst for freedom grew, finally to this breaking point. "+
+				"Through the years your thirst for freedom grew; finally to this breaking point. "+
 				"There are four block:(A,B,C,D).You know that you are locked in the tightest part of the prison,D Block. "+
 				"\n\n"+
 				"Good Luck "+
